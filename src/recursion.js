@@ -7,31 +7,87 @@
 // Example: 5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5); // 120
 var factorial = function(n) {
+  if (n < 0) {
+    return null;
+  } else if (n === 0) {
+    return 1;
+  } else {
+    return n * (factorial(n-1));
+  }
 };
 
 // 2. Compute the sum of an array of integers.
 // sum([1,2,3,4,5,6]); // 21
 var sum = function(array) {
+  var arr = array.slice();
+  // if (arr.length) {
+  //   res += arr.pop();
+  //   return res += sum(arr);
+  // } else {
+  //   return res;
+  // }
+  if (arr.length === 0) {
+    return 0;
+  } else {
+    return arr.pop() + sum(arr);
+  }
+
 };
 
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
+  var arr = array.slice();
+  if (arr.length === 0) {
+    return 0;
+  } else {
+    var item = arr.pop();
+    if (Array.isArray(item)) {
+      return arraySum(item) + arraySum(arr);
+    } else {
+      return item + arraySum(arr);
+    }
+  }
 };
 
 // 4. Check if a number is even.
 var isEven = function(n) {
+  n = Math.abs(n);
+  if (n === 1) {
+    return false;
+  } else if (n === 0) {
+    return true;
+  }
+  return isEven(n-2);
 };
 
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
 // sumBelow(7); // 21
 var sumBelow = function(n) {
+  if (n === 1 || n === 0) {
+    return 0;
+  } else if (n < 0) {
+    return (n+1) + sumBelow(n+1);
+  } else {
+    return (n-1) + sumBelow(n-1);
+  }
+
 };
 
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
+  if (x === y || Math.abs(x-y) === 1) {
+    return [];
+  }
+  if (x>y+1) {
+    x--;
+    return [x].concat(range(x, y));
+ } else if (x<y-1) {
+    x++;
+    return [x].concat(range(x, y));
+ }
 };
 
 // 7. Compute the exponent of a number.
@@ -40,21 +96,49 @@ var range = function(x, y) {
 // exponent(4,3); // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 var exponent = function(base, exp) {
+  if (exp === 0) {
+    return 1;
+  }  else if (exp < 0) {
+    base = 1/base;
+    exp  = -1*exp;
+  }
+  return parseFloat(base * exponent(base,exp-1).toFixed(exp));
+
 };
+
+
+
 
 // 8. Determine if a number is a power of two.
 // powerOfTwo(1); // true
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
 var powerOfTwo = function(n) {
+  if (n === 2 || n === 1) {
+    return true;
+  } else if (n < 2) {
+    return false;
+  }
+   return powerOfTwo(n/2);
 };
 
 // 9. Write a function that reverses a string.
 var reverse = function(string) {
+  if (string.length === 0) {
+    return '';
+  }
+  return reverse(string.slice(1)) + string[0];
 };
 
 // 10. Write a function that determines if a string is a palindrome.
 var palindrome = function(string) {
+  if (string.toLowerCase().length < 2) {
+    return true;
+  } else if (string.toLowerCase()[0] !== string.toLowerCase().slice(-1)) {
+    return false;
+  } else {
+    return palindrome(string.toLowerCase().slice(1, -1));
+  }
 };
 
 // 11. Write a function that returns the remainder of x divided by y without using the
@@ -63,6 +147,16 @@ var palindrome = function(string) {
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function(x, y) {
+  // if ( x === 0 && y === 0) {
+  //   return NaN;
+  // } else if (x < 0 && y < 0) {
+
+  // } else if (x < y ) {
+  //   return x;
+  // } else {
+  //   x -= y;
+  //   return modulo(x, y);
+  // }
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator or
@@ -230,6 +324,7 @@ var numToText = function(str) {
 
 // 37. Return the number of times a tag occurs in the DOM.
 var tagCount = function(tag, node) {
+
 };
 
 // 38. Write a function for binary search.
