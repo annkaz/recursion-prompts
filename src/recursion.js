@@ -147,16 +147,16 @@ var palindrome = function(string) {
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function(x, y) {
-  // if ( x === 0 && y === 0) {
-  //   return NaN;
-  // } else if (x < 0 && y < 0) {
+  if ( x === 0 && y === 0) {
+    return NaN;
+  } else if (x < 0 && y < 0) {
 
-  // } else if (x < y ) {
-  //   return x;
-  // } else {
-  //   x -= y;
-  //   return modulo(x, y);
-  // }
+  } else if (x < y ) {
+    return x;
+  } else {
+    x -= y;
+    return modulo(x, y);
+  }
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator or
@@ -296,8 +296,17 @@ var nestedEvenSum = function(obj) {
 
 // 30. Flatten an array containing nested arrays.
 // flatten([1,[2],[3,[[4]]],5]); // [1,2,3,4,5]
-var flatten = function(array) {
-};
+var flatten = function (arr){
+  let res = [];
+
+  for (let i = 0; i < arr.length; i++) {
+      if (!Array.isArray(arr[i])) res.push(arr[i]);
+      else{
+          res = res.concat(flatten(arr[i]));
+      }
+  }
+  return res;
+}
 
 // 31. Given a string, return an object containing tallies of each letter.
 // letterTally('potato'); // {p:1, o:2, t:2, a:1}
